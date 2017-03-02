@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Ciclos en Vue</title>
+    <style >
+    .tarea_completade{
+      text-decoration: line-through;
+    }
+
+    </style>
+  </head>
+
+  <body>
+    <h1>Hola_Vue_JS</h1>
+
+    <div id="app">
+      <ul>
+        <li v-for:"tare in to_do" v-bind:class="{tarea_completada: tarea.completada}">{{ tarea.tarea }}</li>
+      </ul>
+
+      <button @click="traer_lista"> Traer Lista </button>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.1/vue.js"></script>
+    <script
+  src="http://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
+    <script>
+      new Vue({
+        el :"#app",
+        data: {
+          to_do: [
+            {tarea: "Estudiar Vue", completada: false},
+            {tarea: "Estudiar Python", completada: false},
+            {tarea: "Estudiar bien", completada: false},
+            {tarea: "Entregar proyecto", completada: false},
+          ]
+      },
+      methods: {
+      traer_lista: function(valor){
+       $.get("http://localhost:5000/lista",{}, function(response){
+         this.to_do=response.tarea
+        }.bind(this))
+       }
+      }
+    })
+    </script>
+  </body>
+</html>
